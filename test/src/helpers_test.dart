@@ -167,8 +167,8 @@ void main() {
       final status = parsePacket(data);
       final map = status!.asMap();
       expect(map[Keys.ELAPSED_TIME_KEY], equals(Duration(seconds: 10)));
-      expect(map[Keys.WORKOUT_POWER_KEY], equals(340));
-      expect(map[Keys.WORKOUT_CALORIES_KEY], equals(2.0));
+      expect(map[Keys.STROKE_POWER_KEY], equals(340));
+      expect(map[Keys.STROKE_CALORIES_KEY], equals(2.0));
       expect(map[Keys.STROKE_COUNT_KEY], equals(1000));
       expect(
           map[Keys.WORKOUT_PROJECTED_TIME_KEY], equals(Duration(seconds: 100)));

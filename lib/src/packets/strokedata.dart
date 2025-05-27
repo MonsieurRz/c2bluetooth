@@ -96,8 +96,8 @@ class StrokeData2 extends ElapsedtimeStampedData {
   Map<String, dynamic> asMap() {
     Map<String, dynamic> map = super.asMap();
     map.addAll({
-      Keys.WORKOUT_POWER_KEY: strokePower,
-      Keys.WORKOUT_CALORIES_KEY: strokeCalories,
+      Keys.STROKE_POWER_KEY: strokePower,
+      Keys.STROKE_CALORIES_KEY: strokeCalories,
       Keys.STROKE_COUNT_KEY: strokeCount,
       Keys.WORKOUT_PROJECTED_TIME_KEY: projectedWorkTime,
       Keys.WORKOUT_PROJECTED_DISTANCE_KEY: projectedWorkDistance,

@@ -63,15 +63,15 @@ class WorkoutSummary extends TimestampedData {
     Map<String, dynamic> map = super.asMap();
     map.addAll({
       Keys.ELAPSED_TIME_KEY: elapsedTime,
-      Keys.WORKOUT_DISTANCE_KEY: workDistance,
-      Keys.WORKOUT_AVG_SPM_KEY: avgSPM,
-      Keys.WORKOUT_LAST_HR_KEY: endHeartRate,
-      Keys.WORKOUT_AVG_HR_KEY: avgHeartRate,
-      Keys.WORKOUT_MIN_HR_KEY: minHeartRate,
-      Keys.WORKOUT_MAX_HR_KEY: maxHeartRate,
-      Keys.WORKOUT_AVG_PACE_KEY: avgPace,
-      Keys.WORKOUT_AVG_DRAGFACTOR_KEY: avgDragFactor,
-      Keys.WORKOUT_RECOVERY_HR_KEY: recoveryHeartRate,
+      Keys.SUMMARY_WORK_DISTANCE_KEY: workDistance,
+      Keys.SUMMARY_AVG_SPM_KEY: avgSPM,
+      Keys.SUMMARY_LAST_HR_KEY: endHeartRate,
+      Keys.SUMMARY_AVG_HR_KEY: avgHeartRate,
+      Keys.SUMMARY_MIN_HR_KEY: minHeartRate,
+      Keys.SUMMARY_MAX_HR_KEY: maxHeartRate,
+      Keys.SUMMARY_AVG_PACE_KEY: avgPace,
+      Keys.SUMMARY_AVG_DRAGFACTOR_KEY: avgDragFactor,
+      Keys.SUMMARY_RECOVERY_HR_KEY: recoveryHeartRate,
       // workoutType,
       // "something.something.average":
     });
@@ -116,12 +116,12 @@ class WorkoutSummary1 extends TimestampedData {
     map.addAll({
       Keys.WORKOUT_SEGMENT_COUNT_KEY: intervalCount,
       Keys.WORKOUT_SEGMENT_SIZE_KEY: intervalSize,
-      Keys.WORKOUT_CALORIES_KEY: totalCalories,
-      Keys.WORKOUT_POWER_KEY: watts,
-      Keys.WORKOUT_REST_DISTANCE_KEY: totalRestDistance,
+      Keys.SUMMARY_CALORIES_KEY: totalCalories,
+      Keys.SUMMARY_POWER_KEY: watts,
+      Keys.SUMMARY_REST_DISTANCE_KEY: totalRestDistance,
       // "workout.interval_rest_distance": ,
-      Keys.WORKOUT_REST_TIME_KEY: intervalRestTime,
-      Keys.WORKOUT_AVG_CALORIES_KEY: avgCalories
+      Keys.SUMMARY_REST_TIME_KEY: intervalRestTime,
+      Keys.SUMMARY_AVG_CALORIES_KEY: avgCalories
     });
     return map;
   }
