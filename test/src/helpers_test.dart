@@ -198,5 +198,35 @@ void main() {
       expect(map[Keys.SEGMENT_TYPE_KEY], equals(IntervalType.RESTUNDEFINED));
       expect(map[Keys.SEGMENT_NUMBER_KEY], equals(3));
     });
+    test('parsePacket handles 0x38 SegmentData2', () {
+      // Construct a byte array representing a packet.
+      final data = Uint8List.fromList([
+        0x38, // packet ID
+        0xE8, 0x03, 0x00, // elapsedTime: 1000 (0x0003E8) => 10 seconds
+        0x26, // average strokerate: 0x26 => 38 s/min
+        0x87, // average work heart rate: 0x87 => 135 bpm
+        0x6E, // average rest heart rate: 0x6E => 110 bpm
+        0xB0, 0x04, // segment average pace: 1200 (0x04B0) => 2:00/500m
+        0x10, 0x00, // segment total calories: 0x0010 => 16 calories
+        0x04, 0x00, // segment total calories: 0x0004 => 4 calories
+        0x03, 0x14, // segment speed: 5123 (0x1403) => 5,123 m/s
+        0x54, 0x01, // segment power: 0x0154 => 340 Watts
+        0x8C, // segment avg drag factore: 0x8C => 140
+        0x05, // machine type: 5 => STATIC_E
+      ]);
+      expect(data.lengthInBytes, equals(19));
+      final status = parsePacket(data);
+      final map = status!.asMap();
+      expect(map[Keys.ELAPSED_TIME_KEY], equals(Duration(seconds: 10)));
+      expect(map[Keys.SEGMENT_AVG_SPM_KEY], equals(38));
+      expect(map[Keys.SEGMENT_WORK_HR_KEY], equals(135));
+      expect(map[Keys.SEGMENT_REST_HR_KEY], equals(110));
+      expect(map[Keys.SEGMENT_AVG_PACE_KEY], equals(120));
+      expect(map[Keys.SEGMENT_CALORIES_KEY], equals(16));
+      expect(map[Keys.SEGMENT_AVG_CALORIES_KEY], equals(4));
+      expect(map[Keys.SEGMENT_SPEED_KEY], equals(5.123));
+      expect(map[Keys.SEGMENT_POWER_KEY], equals(340));
+      expect(map[Keys.SEGMENT_AVG_DRAGFACTOR_KEY], equals(140));
+    });
   });
 }
