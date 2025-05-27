@@ -101,7 +101,7 @@ class SegmentData2 extends SharedSegmentData {
         segmentPower = CsafeIntExtension.fromBytes(data.sublist(14, 16),
             endian: Endian.little),
         splitAverageDragFactor = data.elementAt(16),
-        machineType = MachineTypeExtension.fromInt(data.elementAt(18)),
+        machineType = MachineTypeExtension.fromInt(data.elementAt(17)),
         super.fromBytes(data);
 
   Map<String, dynamic> asMap() {
