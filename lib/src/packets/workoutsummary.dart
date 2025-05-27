@@ -114,8 +114,8 @@ class WorkoutSummary1 extends TimestampedData {
     // workout.interval_rest_distance
     Map<String, dynamic> map = super.asMap();
     map.addAll({
-      Keys.WORKOUT_SEGMENT_COUNT_KEY: intervalSize,
-      Keys.WORKOUT_SEGMENT_SIZE_KEY: intervalCount,
+      Keys.WORKOUT_SEGMENT_COUNT_KEY: intervalCount,
+      Keys.WORKOUT_SEGMENT_SIZE_KEY: intervalSize,
       Keys.WORKOUT_CALORIES_KEY: totalCalories,
       Keys.WORKOUT_POWER_KEY: watts,
       Keys.WORKOUT_REST_DISTANCE_KEY: totalRestDistance,
