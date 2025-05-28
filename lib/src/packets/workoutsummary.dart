@@ -11,7 +11,7 @@ import 'keys.dart';
 ///
 /// This takes care of processesing the raw byte data from workout summary characteristics into easily accessible fields. This class also takes care of things like byte endianness, combining multiple high and low bytes .etc, allowing applications to access things in terms of flutter native types.
 class WorkoutSummary extends TimestampedData {
-  Duration elapsedTime;
+  Duration workTime;
   double workDistance;
   int avgSPM;
   int endHeartRate;
@@ -28,7 +28,7 @@ class WorkoutSummary extends TimestampedData {
 
   /// Construct a WorkoutSummary from the bytes returned from the erg
   WorkoutSummary.fromBytes(Uint8List data)
-      : elapsedTime = Concept2DurationExtension.fromBytes(data.sublist(4, 7)),
+      : workTime = Concept2DurationExtension.fromBytes(data.sublist(4, 7)),
         workDistance = CsafeIntExtension.fromBytes(data.sublist(7, 10),
                 endian: Endian.little) /
             10,
@@ -62,7 +62,7 @@ class WorkoutSummary extends TimestampedData {
     // workout.calories.average
     Map<String, dynamic> map = super.asMap();
     map.addAll({
-      Keys.ELAPSED_TIME_KEY: elapsedTime,
+      Keys.SUMMARY_WORK_TIME_KEY: workTime,
       Keys.SUMMARY_WORK_DISTANCE_KEY: workDistance,
       Keys.SUMMARY_AVG_SPM_KEY: avgSPM,
       Keys.SUMMARY_LAST_HR_KEY: endHeartRate,

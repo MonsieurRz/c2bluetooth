@@ -51,6 +51,7 @@ class Keys {
   static const SUMMARY_MIN_HR_KEY = "summary.heart_rate.min";
   static const SUMMARY_MAX_HR_KEY = "summary.heart_rate.max";
   static const SUMMARY_AVG_SPM_KEY = "summary.stroke_rate.average";
+  static const SUMMARY_WORK_TIME_KEY = "summary.work_time";
   static const SUMMARY_WORK_DISTANCE_KEY = "summary.work_distance";
 
   static const STROKE_CALORIES_KEY = "stroke.calories";

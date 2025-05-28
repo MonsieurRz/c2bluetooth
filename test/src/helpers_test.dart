@@ -228,5 +228,36 @@ void main() {
       expect(map[Keys.SEGMENT_POWER_KEY], equals(340));
       expect(map[Keys.SEGMENT_AVG_DRAGFACTOR_KEY], equals(140));
     });
+    test('parsePacket handles 0x39 WorkoutSummary', () {
+      // Construct a byte array representing a packet.
+      final data = Uint8List.fromList([
+        0x39, // packet ID
+        0x00, 0x00, 0x00, 0x00, // timestamp
+        0x80, 0x00, 0x00, // summary work time
+        0xFF, 0x00, 0x00, // summary work distance
+        0x20, // summary avg stroke rate
+        0xBE, // summary last heart rate
+        0xAA, // summary avg  heart rate
+        0x44, // summary min  heart rate
+        0xBE, // summary max  heart rate
+        0x78, // drag factor avg
+        0x00, // recovery heart rate
+        0x01, // workout type
+        0x64,
+      ]);
+      expect(data.lengthInBytes, equals(20));
+      final status = parsePacket(data);
+      final map = status!.asMap();
+      expect(map[Keys.WORKOUT_TIMESTAMP_KEY], equals(DateTime(2000)));
+      expect(map[Keys.SUMMARY_WORK_TIME_KEY],
+          equals(Duration(seconds: 1, milliseconds: 280)));
+      expect(map[Keys.SUMMARY_WORK_DISTANCE_KEY], equals(25.5));
+      expect(map[Keys.SUMMARY_AVG_SPM_KEY], equals(32));
+      expect(map[Keys.SUMMARY_LAST_HR_KEY], equals(190));
+      expect(map[Keys.SUMMARY_AVG_HR_KEY], equals(170));
+      expect(map[Keys.SUMMARY_MIN_HR_KEY], equals(68));
+      expect(map[Keys.SUMMARY_MAX_HR_KEY], equals(190));
+      expect(map[Keys.SUMMARY_AVG_DRAGFACTOR_KEY], equals(120));
+    });
   });
 }

@@ -23,9 +23,9 @@ class TimestampedData extends Concept2CharacteristicData {
   // https://github.com/MoralCode/c2-missing-spec/blob/main/concept2-the-missing-spec.md#date-and-time-formats
   TimestampedData.fromBytes(Uint8List bytes)
       : timestamp = DateTime(
-            2000 + ((bytes[1] & 0xFE) >> 1),
+            2000 + ((bytes[1] >>> 1) & 0x7F),
             bytes[0] & 0x0F,
-            ((bytes[1] & 0x01) << 4) + ((bytes[0] & 0xF0) >> 4),
+            ((bytes[1] << 4) & 0x01) + ((bytes[0] >>> 4) & 0x0F),
             bytes[3],
             bytes[2]);
 
