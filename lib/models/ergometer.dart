@@ -97,7 +97,8 @@ class Ergometer {
         .subscribeToCharacteristic(csafeRxCharacteristic)
         .asyncMap((datapoint) => Uint8List.fromList(datapoint))
         .asyncMap((datapoint) {
-      print("reading data: $datapoint");
+      print(
+          "reading data: ${datapoint.map((e) => e.toRadixString(16).padLeft(2, '0')).join(',')}");
       return datapoint;
     });
   }
@@ -119,6 +120,8 @@ class Ergometer {
     //     true);
     // //.asyncMap((datapoint) => datapoint.read());
 
+    print(
+        "writing data: ${value.map((e) => e.toRadixString(16).padLeft(2, '0')).join(',')}");
     _flutterReactiveBle.writeCharacteristicWithResponse(csafeTxCharacteristic,
         value: value);
   }
