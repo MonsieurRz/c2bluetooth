@@ -114,15 +114,14 @@ class Workout {
 class WorkoutGoal extends Equatable {
   final int length;
   final DurationType type;
+  static const int timeFactor = 100;
 
   WorkoutGoal(this.length, this.type);
 
   WorkoutGoal.meters(this.length) : type = DurationType.DISTANCE;
 
-  WorkoutGoal.seconds(this.length) : type = DurationType.TIME;
-  WorkoutGoal.minutes(length)
-      : this.length = length * 60,
-        type = DurationType.TIME;
+  WorkoutGoal.seconds(seconds) : this(seconds * timeFactor, DurationType.TIME);
+  WorkoutGoal.minutes(minutes) : this.seconds(minutes * 60);
 
   WorkoutGoal.calories(this.length) : type = DurationType.CALORIES;
 
@@ -134,22 +133,30 @@ class WorkoutGoal extends Equatable {
     return CsafeIntegerWithUnits(length, CsafeUnits.meter);
   }
 
+  int get _timeFactor => timeFactor;
+
   Duration asDuration() {
-    return Duration(minutes: length);
+    if (type != DurationType.TIME) {
+      throw StateError('asDuration() called for non-time goal: $type');
+    }
+    return Duration(milliseconds: (length * 1000) ~/ _timeFactor);
   }
 
   @override
   List<Object?> get props => [length, type];
 }
 
-/// A type to generically represent a goal for a workout
-///
+/// A type to generically represent a rest for a workout: Rest uses a different time factor and C2 byte length.
 /// This is almost identical to similar to [Concept2IntegerWithUnits] and [CsafeIntegerWithUnits]. It is meant to be a simplified version of those types that can be converted into either one depending on which API (CSAFE public or C2 Proprietary) is needed (since they both serialize differently and have different types)
+
 class WorkoutRest extends WorkoutGoal {
   WorkoutRest(super.length, super.type);
+  static const int timeFactor = 1;
   WorkoutRest.meters(int length) : super.meters(length);
-  WorkoutRest.seconds(int length) : super.seconds(length);
-  WorkoutRest.minutes(int length) : super.minutes(length);
+  WorkoutRest.seconds(int seconds)
+      : super(seconds * timeFactor, DurationType.TIME);
+  WorkoutRest.minutes(int minutes)
+      : super(minutes * 60 * timeFactor, DurationType.TIME);
   WorkoutRest.calories(int length) : super.calories(length);
   WorkoutRest.wattMin(int length) : super.wattMin(length);
   @override
