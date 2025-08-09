@@ -243,7 +243,7 @@ class Ergometer {
     if (workout.isInterval) {
       // for each interval
       commands.add(CsafePmSetWorkoutDuration(workout.goals.first.toC2()));
-      commands.add(CsafePmSetWorkoutDuration(workout.rests.first.toC2()));
+      commands.add(CsafePmSetWorkoutRestDuration(workout.rests.first.toC2()));
     } else {
       // if (workout.goals.first.type == DurationType.CALORIES) {
       //   commands.add(CsafePmSetWorkoutDuration(workout.goals.first.))

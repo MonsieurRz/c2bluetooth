@@ -27,7 +27,7 @@ class Workout {
   ///  this is the goal for each segment
   List<WorkoutGoal> goals;
 
-  List<WorkoutGoal> rests = [];
+  List<WorkoutRest> rests = [];
 
   Duration? targetPacePer500;
   Concept2IntegerWithUnits? splitLength;
@@ -35,7 +35,7 @@ class Workout {
   // WorkoutType get c2WorkoutType => WorkoutType.JUSTROW_NOSPLITS;
 
   Workout(this.goals,
-      {this.splitLength, List<WorkoutGoal>? rests, this.targetPacePer500})
+      {this.splitLength, List<WorkoutRest>? rests, this.targetPacePer500})
       : rests = rests ?? [] {
     // TODO: Validate that rest is an amount of time? (maybe it can be other things?)
   }
@@ -49,7 +49,7 @@ class Workout {
 
   /// Shortcut for an intervals workout
   /// [primaryGoal] should be a distance or time value to use per interval
-  Workout.intervals(List<WorkoutGoal> goals, List<WorkoutGoal> rests)
+  Workout.intervals(List<WorkoutGoal> goals, List<WorkoutRest> rests)
       : this(goals, rests: rests);
 
   Workout.split(WorkoutGoal primaryGoal, Concept2IntegerWithUnits? splitGoal)
@@ -119,7 +119,10 @@ class WorkoutGoal extends Equatable {
 
   WorkoutGoal.meters(this.length) : type = DurationType.DISTANCE;
 
-  WorkoutGoal.minutes(this.length) : type = DurationType.TIME;
+  WorkoutGoal.seconds(this.length) : type = DurationType.TIME;
+  WorkoutGoal.minutes(length)
+      : this.length = length * 60,
+        type = DurationType.TIME;
 
   WorkoutGoal.calories(this.length) : type = DurationType.CALORIES;
 
@@ -137,4 +140,19 @@ class WorkoutGoal extends Equatable {
 
   @override
   List<Object?> get props => [length, type];
+}
+
+/// A type to generically represent a goal for a workout
+///
+/// This is almost identical to similar to [Concept2IntegerWithUnits] and [CsafeIntegerWithUnits]. It is meant to be a simplified version of those types that can be converted into either one depending on which API (CSAFE public or C2 Proprietary) is needed (since they both serialize differently and have different types)
+class WorkoutRest extends WorkoutGoal {
+  WorkoutRest(super.length, super.type);
+  WorkoutRest.meters(int length) : super.meters(length);
+  WorkoutRest.seconds(int length) : super.seconds(length);
+  WorkoutRest.minutes(int length) : super.minutes(length);
+  WorkoutRest.calories(int length) : super.calories(length);
+  WorkoutRest.wattMin(int length) : super.wattMin(length);
+  @override
+  Concept2IntegerWithUnits toC2() =>
+      Concept2IntegerWithUnits(length, type, byteLength: 2);
 }

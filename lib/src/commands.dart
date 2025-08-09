@@ -45,6 +45,11 @@ class CsafePMSetSplitDuration extends Concept2Command {
   }
 }
 
+class CsafePmSetWorkoutRestDuration extends Concept2Command {
+  CsafePmSetWorkoutRestDuration(Concept2IntegerWithUnits duration)
+      : super.long(0x04, 2, duration);
+}
+
 class CsafePmSetWorkoutDuration extends Concept2Command {
   CsafePmSetWorkoutDuration(Concept2IntegerWithUnits duration)
       : super.long(0x03, 5, duration);
