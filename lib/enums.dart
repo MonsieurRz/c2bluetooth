@@ -174,6 +174,11 @@ extension IntervalTypeExtension on IntervalType {
   }
 }
 
+enum WorkoutProgrammingMode {
+  INACTIVE, // = 0x00
+  ACTIVE, // = 0x01
+}
+
 enum RowingState {
   INACTIVE,
   ACTIVE,

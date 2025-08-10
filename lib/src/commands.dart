@@ -80,8 +80,8 @@ class CsafePMSetWorkoutType extends Concept2Command {
 }
 
 class CsafePMConfigureWorkout extends Concept2Command {
-  CsafePMConfigureWorkout(WorkoutNumber workoutNum)
-      : super.long(0x01, 1, workoutNum.value.toBytes(fillBytes: 1).asCsafe()) {
+  CsafePMConfigureWorkout(WorkoutProgrammingMode mode)
+      : super.long(0x14, 1, mode.index.toBytes(fillBytes: 1).asCsafe()) {
     // validateData(
     //     data, [validateType<Concept2IntegerWithUnits>(), validateC2SplitGoal()],
     //     shouldThrow: true);
