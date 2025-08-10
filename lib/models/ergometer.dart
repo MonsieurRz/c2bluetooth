@@ -232,8 +232,10 @@ class Ergometer {
 
   void _startWorkoutProprietary() async {
     await _csafeClient!.sendCommands([
-      C2ProprietaryWrapper(
-          [CsafePMSetScreenState(WorkoutScreenValue.PREPARETOROWWORKOUT)])
+      C2ProprietaryWrapper([
+        CsafePMConfigureWorkout(WorkoutProgrammingMode.ACTIVE),
+        CsafePMSetScreenState(WorkoutScreenValue.PREPARETOROWWORKOUT)
+      ])
     ]).then((value) => print(value));
   }
 
