@@ -30,6 +30,9 @@ class Concept2IntegerWithUnits extends IntegerWithUnits<DurationType> {
       : this(value, DurationType.CALORIES);
 
   Concept2IntegerWithUnits.time(int value) : this(value, DurationType.TIME);
+  Concept2IntegerWithUnits.seconds(int value) : this(value, DurationType.TIME);
+  Concept2IntegerWithUnits.minutes(int value)
+      : this(value * 60, DurationType.TIME);
 
   bool matchesType(DurationType type) => unit == type;
 
