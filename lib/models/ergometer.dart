@@ -237,6 +237,15 @@ class Ergometer {
     ]).then((value) => print(value));
   }
 
+  void changeScreen(WorkoutScreenValue screen) async {
+    await _csafeClient!.sendCommands([
+      C2ProprietaryWrapper([
+        CsafePMConfigureWorkout(WorkoutProgrammingMode.ACTIVE),
+        CsafePMSetScreenState(screen)
+      ])
+    ]).then((value) => print(value));
+  }
+
   void _startWorkout() async {
     await _csafeClient!
         .sendCommands([cmdGoInUse]).then((value) => print(value));
