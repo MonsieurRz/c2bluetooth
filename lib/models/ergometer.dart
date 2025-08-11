@@ -225,6 +225,18 @@ class Ergometer {
     }
   }
 
+  void stopWorkout() async {
+    await _csafeClient!
+        .sendCommands([cmdGoFinished]).then((value) => print(value));
+  }
+
+  void stopWorkoutProprietary() async {
+    await _csafeClient!.sendCommands([
+      C2ProprietaryWrapper(
+          [CsafePMSetScreenState(WorkoutScreenValue.TERMINATEWORKOUT)])
+    ]).then((value) => print(value));
+  }
+
   void _startWorkout() async {
     await _csafeClient!
         .sendCommands([cmdGoInUse]).then((value) => print(value));
