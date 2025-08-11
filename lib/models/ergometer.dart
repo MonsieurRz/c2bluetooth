@@ -258,12 +258,12 @@ class Ergometer {
     if (workout.hasSplits) {
       commands.add(CsafePMSetSplitDuration(workout.splitLength!));
     }
-
-    await _sendProprietaryCommands(commands);
-
     if (startImmediately) {
-      _startWorkoutProprietary();
+      commands.add(CsafePMConfigureWorkout(WorkoutProgrammingMode.ACTIVE));
+      commands
+          .add(CsafePMSetScreenState(WorkoutScreenValue.PREPARETOROWWORKOUT));
     }
+    await _sendProprietaryCommands(commands);
   }
 
   Future<List<CsafeCommandResponse>> _sendProprietaryCommands(
