@@ -294,4 +294,17 @@ class Ergometer {
         .sendCommands(commands.map((e) => C2ProprietaryWrapper([e])).toList());
     // .then((value) => print(value));
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (other is Ergometer) {
+      return other._peripheral.id == _peripheral.id;
+    }
+    return false;
+  }
+
+  @override
+  int get hashCode {
+    return _peripheral.id.hashCode;
+  }
 }
